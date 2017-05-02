@@ -5,12 +5,12 @@ namespace App;
 
 class Matriushka
 {
-    public static function setUp($expression)
+    public static function setUp($model)
     {
         return 'Hola';
     }
 
-    public static function tearDown($expression)
+    public static function tearDown($model)
     {
         return 'Adeu';
     }
