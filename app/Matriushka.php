@@ -3,15 +3,27 @@
 namespace App;
 
 
+use Cache;
+
 class Matriushka
 {
+    protected static $keys=[];
+
     public static function setUp($model)
     {
-        return 'Hola';
+        static::$keys[] = $key = $model->getCacheKey();
+        ob_start();
+        return Cache::tags('views')->has($key);
     }
 
-    public static function tearDown($model)
+    public static function tearDown()
     {
-        return 'Adeu';
+        $key = array_pop(static::$keys);
+        $html = ob_get_clean();
+        return Cache::tags('views')
+                       ->rememberForever($key, function () use ($html) {
+                       return $html;
+         });
+
     }
 }
