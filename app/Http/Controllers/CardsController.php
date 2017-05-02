@@ -8,7 +8,7 @@ class CardsController extends Controller
 {
     public function index()
     {
-        $cards = Card::all(); 
+        $cards = Card::with('notes')->get();
 
         return view('cards.index', compact('cards'));
     }
